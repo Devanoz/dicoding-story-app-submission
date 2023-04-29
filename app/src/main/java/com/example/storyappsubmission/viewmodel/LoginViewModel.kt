@@ -26,7 +26,10 @@ class LoginViewModel(private val application: Application) : AndroidViewModel(ap
     private val _isLoginSucces = MutableLiveData(false)
     val isLoginSuccess: LiveData<Boolean> = _isLoginSucces
 
+    private val _showLinearProgfress = MutableLiveData(false)
+    val showLinearProgress: LiveData<Boolean> = _showLinearProgfress
     fun login(email: String, password: String) {
+        _showLinearProgfress.value = true
         val call = client.login(LoginModel(email,password))
         Toast.makeText(application,"still waiting to login",Toast.LENGTH_SHORT).show()
         call.enqueue(object : Callback<LoginResponse> {
@@ -44,8 +47,10 @@ class LoginViewModel(private val application: Application) : AndroidViewModel(ap
                         preferencesHelper.putPreference(PreferencesDataStoreConstans.TOKEN, token.toString())
                     }
                     _isLoginSucces.value = true
+                    _showLinearProgfress.value = false
                 }else {
                     _isLoginSucces.value = false
+                    _showLinearProgfress.value = false
                 }
             }
 

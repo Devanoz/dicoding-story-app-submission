@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">StoryAppSubmission</string>
+    <string name="logout_menu_title">logout</string>
+    <string name="logout_menu_description">wahh</string>
 </resources>

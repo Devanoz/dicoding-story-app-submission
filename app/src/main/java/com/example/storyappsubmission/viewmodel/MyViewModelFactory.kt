@@ -9,8 +9,10 @@ class MyViewModelFactory constructor(private val application: Application): View
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             LoginViewModel(application) as T
-        } else {
-            throw IllegalArgumentException("ViewModel Not Found")
+        } else if (modelClass.isAssignableFrom(ListStoryViewModel::class.java)) {
+            ListStoryViewModel(application) as T
+        }else {
+            throw IllegalArgumentException("Viewmodel not found")
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.storyappsubmission.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
@@ -43,7 +44,14 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(Intent(this,ListStoryActivity::class.java))
             }
         }
+        viewModel.showLinearProgress.observe(this) {condition ->
+            showLinearProgressBar(condition)
+        }
     }
 
     private fun isFormValid(): Boolean = binding.etEmail.isValid && binding.etPassword.isValid
+    private fun showLinearProgressBar(condition: Boolean){
+        binding.lpgLoginStatus.isIndeterminate = condition
+        binding.lpgLoginStatus.visibility = if (condition) View.VISIBLE else View.INVISIBLE
+    }
 }
