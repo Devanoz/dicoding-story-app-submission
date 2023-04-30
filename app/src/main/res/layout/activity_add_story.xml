@@ -7,7 +7,7 @@
     tools:context=".ui.AddStoryActivity">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shapeableImageView"
+        android:id="@+id/imv_for_upload"
         android:layout_width="320dp"
         android:layout_height="200dp"
         android:layout_marginTop="32dp"
@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/sunrise" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton"
+        android:id="@+id/btn_take_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -30,9 +30,10 @@
         app:cornerRadius="8dp"
         app:icon="@drawable/baseline_add_a_photo_24"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/shapeableImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imv_for_upload" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_pick_from_gallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -42,7 +43,7 @@
         android:text="Gallery"
         app:icon="@drawable/baseline_add_photo_alternate_24"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/shapeableImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imv_for_upload" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

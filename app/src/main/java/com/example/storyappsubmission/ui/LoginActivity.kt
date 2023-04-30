@@ -42,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
         viewModel.isLoginSuccess.observe(this) { isSuccess ->
             if(isSuccess) {
                 startActivity(Intent(this,ListStoryActivity::class.java))
+                finish()
             }
         }
         viewModel.showLinearProgress.observe(this) {condition ->
