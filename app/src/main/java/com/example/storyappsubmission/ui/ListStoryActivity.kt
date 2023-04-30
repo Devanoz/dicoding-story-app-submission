@@ -55,6 +55,7 @@ class ListStoryActivity : AppCompatActivity() {
             rvStories.layoutManager = LinearLayoutManager(this)
             storiesAdapter = StoriesAdapter(storyList)
             rvStories.adapter = storiesAdapter
+            storiesAdapter.activityContext = this
             srlRefreshStory.isRefreshing = false
         }
 

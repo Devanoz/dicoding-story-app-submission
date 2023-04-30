@@ -1,10 +1,13 @@
 package com.example.storyappsubmission.viewmodel
 
 import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.storyappsubmission.api.ApiConfig
 import com.example.storyappsubmission.api.ApiService
+import com.example.storyappsubmission.api.pojo.DetailStoryItem
 import com.example.storyappsubmission.api.pojo.DetailStoryResponse
 import com.example.storyappsubmission.data.local.PreferencesDataStoreConstans
 import com.example.storyappsubmission.data.local.PreferencesDataStoreHelper
@@ -17,6 +20,9 @@ class DetailStoryViewModel(application: Application)  : ViewModel() {
     private lateinit var token: String
     private lateinit var client : ApiService
 
+    private val _detailStory = MutableLiveData<DetailStoryItem>()
+    val detailStory: LiveData<DetailStoryItem> = _detailStory
+
     init {
         viewModelScope.launch {
             token = PreferencesDataStoreHelper(application).getFirstPreference(
@@ -27,7 +33,7 @@ class DetailStoryViewModel(application: Application)  : ViewModel() {
         }
     }
 
-    fun getDetailViewModel(id: String) {
+    fun getDetailStoryById(id: String) {
         val call = client.getStoryDetail(id)
         call.enqueue(object: Callback<DetailStoryResponse> {
             override fun onResponse(
@@ -35,7 +41,8 @@ class DetailStoryViewModel(application: Application)  : ViewModel() {
                 response: Response<DetailStoryResponse>
             ) {
                if(response.isSuccessful) {
-
+                    val storyResponse = response.body()?.story
+                   _detailStory.value = storyResponse
                }
             }
 

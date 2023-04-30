@@ -3,10 +3,10 @@ package com.example.storyappsubmission.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.example.storyappsubmission.R
+import com.bumptech.glide.Glide
+import com.example.storyappsubmission.adapter.StoriesAdapter
 import com.example.storyappsubmission.databinding.ActivityDetailStoryBinding
 import com.example.storyappsubmission.viewmodel.DetailStoryViewModel
-import com.example.storyappsubmission.viewmodel.ListStoryViewModel
 import com.example.storyappsubmission.viewmodel.MyViewModelFactory
 
 class DetailStoryActivity : AppCompatActivity() {
@@ -18,7 +18,16 @@ class DetailStoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val viewModel = ViewModelProvider(this, MyViewModelFactory(application))[DetailStoryViewModel::class.java]
+        val storyId = intent.getStringExtra(StoriesAdapter.ID_EXTRA) as String
+        viewModel.detailStory.observe(this) {
+            val story = it
+            binding.nameTextView.text = story.name
+            binding.dateTextView.text = story.createdAt
+            binding.descriptionTextView.text = story.description
+            Glide.with(this).load(story.photoUrl).into(binding.storyImageView)
+        }
 
+        viewModel.getDetailStoryById(storyId)
 
     }
 }
