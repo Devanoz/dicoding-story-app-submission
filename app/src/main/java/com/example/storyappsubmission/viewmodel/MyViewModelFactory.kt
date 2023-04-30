@@ -11,7 +11,12 @@ class MyViewModelFactory constructor(private val application: Application): View
             LoginViewModel(application) as T
         } else if (modelClass.isAssignableFrom(ListStoryViewModel::class.java)) {
             ListStoryViewModel(application) as T
-        }else {
+        } else if(modelClass.isAssignableFrom(AddStoryViewModel::class.java)) {
+            AddStoryViewModel(application) as T
+        }else if(modelClass.isAssignableFrom(DetailStoryViewModel::class.java)) {
+            DetailStoryViewModel(application) as T
+        }
+        else {
             throw IllegalArgumentException("Viewmodel not found")
         }
     }
