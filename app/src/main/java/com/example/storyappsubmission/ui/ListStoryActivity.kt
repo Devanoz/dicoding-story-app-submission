@@ -2,8 +2,8 @@ package com.example.storyappsubmission.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
@@ -15,7 +15,6 @@ import com.example.storyappsubmission.adapter.StoriesAdapter
 import com.example.storyappsubmission.data.local.PreferencesDataStoreConstans
 import com.example.storyappsubmission.data.local.PreferencesDataStoreHelper
 import com.example.storyappsubmission.databinding.ActivityListStoryBinding
-import com.example.storyappsubmission.viewmodel.AddStoryViewModel
 import com.example.storyappsubmission.viewmodel.ListStoryViewModel
 import com.example.storyappsubmission.viewmodel.MyViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
@@ -32,6 +31,14 @@ class ListStoryActivity : AppCompatActivity() {
     private lateinit var toolbarStory: MaterialToolbar
     private lateinit var fabAddStory: ExtendedFloatingActionButton
     private lateinit var srlRefreshStory: SwipeRefreshLayout
+
+    private lateinit var listStoryViewModel: ListStoryViewModel
+
+    private val launchAddStoryForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if(it.resultCode == REQUEST_UPLOAD_SUCCES_CONDITION) {
+                listStoryViewModel.getAllStories()
+            }
+    }
 
     private lateinit var name: String
     private lateinit var userId: String
@@ -51,14 +58,8 @@ class ListStoryActivity : AppCompatActivity() {
         fabAddStory = binding.fabAddStory
 
         val rvStories = binding.rvStory
-        val listStoryViewModel = ViewModelProvider(this, MyViewModelFactory(application))[ListStoryViewModel::class.java]
-        val addStoryViewModel = ViewModelProvider(this, MyViewModelFactory(application))[AddStoryViewModel::class.java]
+        listStoryViewModel = ViewModelProvider(this, MyViewModelFactory(application))[ListStoryViewModel::class.java]
 
-        addStoryViewModel.isUploadSuccess.observe(this) {
-            if(it) {
-                listStoryViewModel.getAllStories()
-            }
-        }
         srlRefreshStory.isRefreshing = true
 
         listStoryViewModel.storyList.observe(this) { storyList ->
@@ -97,8 +98,7 @@ class ListStoryActivity : AppCompatActivity() {
         }
         srlRefreshStory.setOnRefreshListener { listStoryViewModel.getAllStories() }
         fabAddStory.setOnClickListener {
-            val intent = Intent(this, AddStoryActivity::class.java)
-            startActivity(intent)
+           launchAddStoryForResult.launch(Intent(this, AddStoryActivity::class.java))
         }
     }
 
@@ -119,6 +119,10 @@ class ListStoryActivity : AppCompatActivity() {
         withContext(Dispatchers.IO) {
             preferencesHelper.clearAllPreference()
         }
+    }
+
+    companion object {
+        const val REQUEST_UPLOAD_SUCCES_CONDITION = 12340
     }
 
 }

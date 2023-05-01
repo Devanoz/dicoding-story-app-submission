@@ -23,6 +23,7 @@ class ListStoryViewModel(private val application: Application) : ViewModel() {
     private val _storyList = MutableLiveData<List<StoryItem>>()
     val storyList: LiveData<List<StoryItem>>  = _storyList
 
+
     init {
         viewModelScope.launch {
             token = PreferencesDataStoreHelper(application).getFirstPreference(
