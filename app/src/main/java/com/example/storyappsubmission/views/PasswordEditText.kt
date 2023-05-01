@@ -23,7 +23,7 @@ class PasswordEditText: AppCompatEditText {
     }
 
     private fun init(){
-        hint = "Masukan passwordmu"
+        hint = context.getString(R.string.insert_your_password)
         val iconDrawable = AppCompatResources.getDrawable(context, R.drawable.baseline_lock_24)
         setCompoundDrawablesWithIntrinsicBounds(iconDrawable,null,null,null)
         val paddingEndDp = 8
@@ -40,7 +40,7 @@ class PasswordEditText: AppCompatEditText {
             override fun afterTextChanged(s: Editable?) {
                 val password = s.toString()
                 if(!isValidPassword(password) && password.isNotEmpty()){
-                    error = "password tidak boleh kurang dari 8 karakter"
+                    error = context.getString(R.string.password_cannot_be_less_than_8_characters)
                     isValid = false
                 }else if (isValidPassword(password)){
                     error = null

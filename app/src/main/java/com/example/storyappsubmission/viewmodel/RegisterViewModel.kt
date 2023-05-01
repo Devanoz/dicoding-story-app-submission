@@ -1,9 +1,11 @@
 package com.example.storyappsubmission.viewmodel
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.storyappsubmission.R
 import com.example.storyappsubmission.api.ApiConfig
 import com.example.storyappsubmission.api.pojo.RegisterResponse
 import com.example.storyappsubmission.data.model.RegisterModel
@@ -12,7 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RegisterViewModel : ViewModel() {
+class RegisterViewModel(private val application: Application) : ViewModel() {
     private val client = ApiConfig.getApiService()
 
     private val _showProgressBar = MutableLiveData(false)
@@ -31,15 +33,13 @@ class RegisterViewModel : ViewModel() {
             ) {
                 if (response.isSuccessful) {
                     _showProgressBar.value = false
-                    _message.value = Event( "register success")
-                    Log.d("registerInfo","success")
+                    _message.value = Event( application.getString(R.string.register_success))
                 }else {
-                    Log.d("registerInfo","failed")
                 }
             }
 
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-
+                _message.value = Event(application.getString(R.string.failed_to_login_try_again))
             }
         })
     }

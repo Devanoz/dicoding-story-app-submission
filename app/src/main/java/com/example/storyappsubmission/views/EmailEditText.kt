@@ -25,9 +25,8 @@ class EmailEditText : AppCompatEditText {
     }
 
     private fun init(){
-        hint = "Masukan emailmu"
+        hint = context.getString(R.string.insert_your_email)
         val iconDrawable = AppCompatResources.getDrawable(context, R.drawable.baseline_email_24)
-        val iconChecked = ContextCompat.getDrawable(context, R.drawable.baseline_check_24)
         setCompoundDrawablesRelativeWithIntrinsicBounds(iconDrawable,null,null,null)
         val paddingEndDp = 8
         compoundDrawablePadding = getDp(paddingEndDp)
@@ -46,7 +45,7 @@ class EmailEditText : AppCompatEditText {
             override fun afterTextChanged(s: Editable?) {
                 val email = s.toString()
                 if(!isValidEmail(email) && email.isNotEmpty()){
-                    error = "email tidak valid"
+                    error = context.getString(R.string.email_is_not_valid)
                     isValid = false
                 }else if (isValidEmail(email)){
                     error = null

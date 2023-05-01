@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.storyappsubmission.databinding.ActivityRegisterBinding
+import com.example.storyappsubmission.viewmodel.LoginViewModel
+import com.example.storyappsubmission.viewmodel.MyViewModelFactory
 import com.example.storyappsubmission.viewmodel.RegisterViewModel
 
 class RegisterActivity : AppCompatActivity() {
@@ -18,12 +20,12 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
+        val viewModel = ViewModelProvider(this, MyViewModelFactory(application))[RegisterViewModel::class.java]
 
-        (viewModel as RegisterViewModel).showProgressBar.observe(this) { isShowing ->
+        viewModel.showProgressBar.observe(this) { isShowing ->
             showProgressBar(isShowing)
         }
-        (viewModel as RegisterViewModel).message.observe(this) {message ->
+        viewModel.message.observe(this) {message ->
             message?.getContentIfNotHandled().let {
                 Toast.makeText(this@RegisterActivity, it, Toast.LENGTH_SHORT).show()
             }
