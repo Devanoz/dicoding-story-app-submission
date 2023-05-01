@@ -4,11 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.storyappsubmission.R
 import com.example.storyappsubmission.databinding.ActivityAddStoryBinding
 import com.example.storyappsubmission.viewmodel.AddStoryViewModel
 import com.example.storyappsubmission.viewmodel.MyViewModelFactory
@@ -54,6 +56,9 @@ class AddStoryActivity : AppCompatActivity() {
                 finish()
             }
         }
+        viewModel.showLinearProgress.observe(this) {condition ->
+            showLinearProgress(condition)
+        }
         binding.btnUpload.setOnClickListener {
             if(uriFileToUpload != null) {
                 viewModel.uploadStory(
@@ -62,9 +67,13 @@ class AddStoryActivity : AppCompatActivity() {
                     isFromGallery
                 )
             }else {
-                Toast.makeText(this,"File is not choosen yet",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,getString(R.string.file_not_choosen),Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun showLinearProgress(condition: Boolean) {
+        binding.liinearProgressBar.visibility = if(condition) View.VISIBLE else View.INVISIBLE
     }
 
     companion object {

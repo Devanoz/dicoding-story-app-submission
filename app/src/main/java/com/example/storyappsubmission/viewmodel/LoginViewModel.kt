@@ -1,11 +1,11 @@
 package com.example.storyappsubmission.viewmodel
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.storyappsubmission.R
 import com.example.storyappsubmission.api.ApiConfig
 import com.example.storyappsubmission.api.pojo.LoginResponse
 import com.example.storyappsubmission.data.local.PreferencesDataStoreConstans
@@ -53,7 +53,7 @@ class LoginViewModel(private val application: Application) : AndroidViewModel(ap
                 }else {
                     _isLoginSucces.value = false
                     _showLinearProgfress.value = false
-                    _message.value = Event("Wrong Username or Password")
+                    _message.value = Event(application.getString(R.string.wrong_username_or_password))
                 }
             }
 

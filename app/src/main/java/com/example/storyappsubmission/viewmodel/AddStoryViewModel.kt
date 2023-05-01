@@ -13,6 +13,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.storyappsubmission.R
 import com.example.storyappsubmission.api.ApiConfig
 import com.example.storyappsubmission.api.ApiService
 import com.example.storyappsubmission.api.pojo.AddStoryResponse
@@ -46,6 +47,9 @@ class AddStoryViewModel(private val application: Application) : ViewModel() {
     private val _isUploadSuccess = MutableLiveData(false)
     val isUploadSuccess: LiveData<Boolean> = _isUploadSuccess
 
+    private val _showLinearProgress = MutableLiveData(false)
+    val showLinearProgress: LiveData<Boolean> = _showLinearProgress
+
     init {
         viewModelScope.launch {
             token = PreferencesDataStoreHelper(application).getFirstPreference(
@@ -57,6 +61,7 @@ class AddStoryViewModel(private val application: Application) : ViewModel() {
     }
 
     fun uploadStory(fileUri: Uri, description: String, isFromGallery: Boolean) {
+        _showLinearProgress.value = true
         var file = uriToFile(fileUri,application)
         if(!isFromGallery) {
             rotateFile(file, isBackCamera = true)
@@ -66,7 +71,6 @@ class AddStoryViewModel(private val application: Application) : ViewModel() {
         val filePart = MultipartBody.Part.createFormData("photo",file.name,requestImageFile)
         val descriptionBody = RequestBody.create(MediaType.parse("text/plain"), description)
         val call = client.postStory(filePart,descriptionBody)
-        Log.d("fasdf","uploading")
         call.enqueue(object: Callback<AddStoryResponse>{
             override fun onResponse(
                 call: Call<AddStoryResponse>,
@@ -74,16 +78,14 @@ class AddStoryViewModel(private val application: Application) : ViewModel() {
             ) {
                 if(response.isSuccessful) {
                     _isUploadSuccess.value = true
-                    Toast.makeText(application, "upload success",Toast.LENGTH_SHORT).show()
+                    _showLinearProgress.value = false
+                    Toast.makeText(application, application.getString(R.string.upload_success),Toast.LENGTH_SHORT).show()
                 }else {
-                    Toast.makeText(application,"failed",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(application,application.getString(R.string.add_story_failed),Toast.LENGTH_SHORT).show()
                 }
-                Log.d("fasdf",response.message())
-
             }
             override fun onFailure(call: Call<AddStoryResponse>, t: Throwable) {
-                Log.d("fasdf",t.message.toString())
-                Toast.makeText(application,"faileds",Toast.LENGTH_SHORT).show()
+                Toast.makeText(application,application.getString(R.string.something_error),Toast.LENGTH_SHORT).show()
             }
         })
     }

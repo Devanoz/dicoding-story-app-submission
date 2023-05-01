@@ -35,6 +35,7 @@ class ListStoryViewModel(private val application: Application) : ViewModel() {
     }
 
     fun getAllStories() {
+
         val call = client.getAllStories()
         call.enqueue(object : Callback<StoriesResponse> {
             override fun onResponse(

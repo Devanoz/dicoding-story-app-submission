@@ -59,6 +59,7 @@ class ListStoryActivity : AppCompatActivity() {
                 listStoryViewModel.getAllStories()
             }
         }
+        srlRefreshStory.isRefreshing = true
 
         listStoryViewModel.storyList.observe(this) { storyList ->
             rvStories.layoutManager = LinearLayoutManager(this)

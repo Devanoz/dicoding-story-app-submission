@@ -2,6 +2,8 @@ package com.example.storyappsubmission.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.storyappsubmission.adapter.StoriesAdapter
@@ -24,7 +26,13 @@ class DetailStoryActivity : AppCompatActivity() {
             binding.nameTextView.text = story.name
             binding.dateTextView.text = story.createdAt
             binding.descriptionTextView.text = story.description
+            binding.circularProgressIndicator.visibility = View.INVISIBLE
             Glide.with(this).load(story.photoUrl).into(binding.storyImageView)
+        }
+        viewModel.message.observe(this) {message ->
+            message?.getContentIfNotHandled()?.let {
+                Toast.makeText(this@DetailStoryActivity, it, Toast.LENGTH_SHORT).show()
+            }
         }
 
         viewModel.getDetailStoryById(storyId)

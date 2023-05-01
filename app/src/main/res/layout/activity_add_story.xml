@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.AddStoryActivity">
 
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/liinear_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:indeterminate="true"
+        />
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imv_for_upload"
         android:layout_width="320dp"
