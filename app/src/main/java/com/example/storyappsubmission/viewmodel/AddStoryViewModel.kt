@@ -9,6 +9,8 @@ import android.net.Uri
 import android.os.Environment
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.storyappsubmission.api.ApiConfig
@@ -41,6 +43,9 @@ class AddStoryViewModel(private val application: Application) : ViewModel() {
         Locale.US
     ).format(System.currentTimeMillis())
 
+    private val _isUploadSuccess = MutableLiveData(false)
+    val isUploadSuccess: LiveData<Boolean> = _isUploadSuccess
+
     init {
         viewModelScope.launch {
             token = PreferencesDataStoreHelper(application).getFirstPreference(
@@ -68,6 +73,7 @@ class AddStoryViewModel(private val application: Application) : ViewModel() {
                 response: Response<AddStoryResponse>
             ) {
                 if(response.isSuccessful) {
+                    _isUploadSuccess.value = true
                     Toast.makeText(application, "upload success",Toast.LENGTH_SHORT).show()
                 }else {
                     Toast.makeText(application,"failed",Toast.LENGTH_SHORT).show()

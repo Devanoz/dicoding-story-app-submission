@@ -11,13 +11,11 @@
         android:layout_width="320dp"
         android:layout_height="200dp"
         android:layout_marginTop="32dp"
-        android:elevation="6dp"
-        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/roundedImages"
-        app:srcCompat="@drawable/sunrise" />
+        app:srcCompat="@drawable/image_default" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_take_photo"
@@ -57,7 +55,7 @@
         android:id="@+id/textInputLayout"
         style="?attr/textInputFilledStyle"
         android:layout_width="0dp"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="Create Your Story"

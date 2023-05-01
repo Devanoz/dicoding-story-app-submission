@@ -2,6 +2,7 @@ package com.example.storyappsubmission.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -14,6 +15,7 @@ import com.example.storyappsubmission.adapter.StoriesAdapter
 import com.example.storyappsubmission.data.local.PreferencesDataStoreConstans
 import com.example.storyappsubmission.data.local.PreferencesDataStoreHelper
 import com.example.storyappsubmission.databinding.ActivityListStoryBinding
+import com.example.storyappsubmission.viewmodel.AddStoryViewModel
 import com.example.storyappsubmission.viewmodel.ListStoryViewModel
 import com.example.storyappsubmission.viewmodel.MyViewModelFactory
 import com.google.android.material.appbar.MaterialToolbar
@@ -49,9 +51,16 @@ class ListStoryActivity : AppCompatActivity() {
         fabAddStory = binding.fabAddStory
 
         val rvStories = binding.rvStory
-        val viewModel = ViewModelProvider(this, MyViewModelFactory(application))[ListStoryViewModel::class.java]
+        val listStoryViewModel = ViewModelProvider(this, MyViewModelFactory(application))[ListStoryViewModel::class.java]
+        val addStoryViewModel = ViewModelProvider(this, MyViewModelFactory(application))[AddStoryViewModel::class.java]
 
-        viewModel.storyList.observe(this) { storyList ->
+        addStoryViewModel.isUploadSuccess.observe(this) {
+            if(it) {
+                listStoryViewModel.getAllStories()
+            }
+        }
+
+        listStoryViewModel.storyList.observe(this) { storyList ->
             rvStories.layoutManager = LinearLayoutManager(this)
             storiesAdapter = StoriesAdapter(storyList)
             rvStories.adapter = storiesAdapter
@@ -85,7 +94,7 @@ class ListStoryActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        srlRefreshStory.setOnRefreshListener { viewModel.getAllStories() }
+        srlRefreshStory.setOnRefreshListener { listStoryViewModel.getAllStories() }
         fabAddStory.setOnClickListener {
             val intent = Intent(this, AddStoryActivity::class.java)
             startActivity(intent)

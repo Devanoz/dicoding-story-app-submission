@@ -49,6 +49,11 @@ class AddStoryActivity : AppCompatActivity() {
         binding.btnTakePhoto.setOnClickListener {
             getImageFromCamera.launch(Intent(this,CameraActivity::class.java))
         }
+        viewModel.isUploadSuccess.observe(this) {
+            if(it) {
+                finish()
+            }
+        }
         binding.btnUpload.setOnClickListener {
             if(uriFileToUpload != null) {
                 viewModel.uploadStory(
