@@ -14,7 +14,6 @@ import com.example.storyappsubmission.viewmodel.RegisterViewModel
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    private lateinit var viewModel: ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +33,7 @@ class RegisterActivity : AppCompatActivity() {
         val etEmail = binding.etEmail
         val etPassword = binding.etPassword
         binding.registerButton.setOnClickListener {
-            (viewModel as RegisterViewModel).register(
+            viewModel.register(
                 etFullname.text.toString(),
                 etEmail.text.toString(),
                 etPassword.text.toString()
