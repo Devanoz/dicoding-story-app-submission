@@ -1,6 +1,8 @@
 package com.example.storyappsubmission.ui
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -18,15 +20,28 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
 
+        (viewModel as RegisterViewModel).showProgressBar.observe(this) { isShowing ->
+            showProgressBar(isShowing)
+        }
+        (viewModel as RegisterViewModel).message.observe(this) {message ->
+            message?.getContentIfNotHandled().let {
+                Toast.makeText(this@RegisterActivity, it, Toast.LENGTH_SHORT).show()
+            }
+        }
         val etFullname = binding.etFullName
         val etEmail = binding.etEmail
         val etPassword = binding.etPassword
-        binding.btLogin.setOnClickListener {
+        binding.registerButton.setOnClickListener {
             (viewModel as RegisterViewModel).register(
                 etFullname.text.toString(),
                 etEmail.text.toString(),
                 etPassword.text.toString()
             )
         }
+
+
+    }
+    private fun showProgressBar(isShowing: Boolean) {
+        binding.registerProgressIndicator.visibility = if(isShowing) View.VISIBLE else View.INVISIBLE
     }
 }

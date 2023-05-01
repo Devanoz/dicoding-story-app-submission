@@ -11,6 +11,7 @@ import com.example.storyappsubmission.api.pojo.LoginResponse
 import com.example.storyappsubmission.data.local.PreferencesDataStoreConstans
 import com.example.storyappsubmission.data.local.PreferencesDataStoreHelper
 import com.example.storyappsubmission.data.model.LoginModel
+import com.example.storyappsubmission.helper.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -26,15 +27,16 @@ class LoginViewModel(private val application: Application) : AndroidViewModel(ap
     private val _isLoginSucces = MutableLiveData(false)
     val isLoginSuccess: LiveData<Boolean> = _isLoginSucces
 
+    private val _message = MutableLiveData<Event<String>>(null)
+    val message: LiveData<Event<String>> = _message
+
     private val _showLinearProgfress = MutableLiveData(false)
     val showLinearProgress: LiveData<Boolean> = _showLinearProgfress
     fun login(email: String, password: String) {
         _showLinearProgfress.value = true
         val call = client.login(LoginModel(email,password))
-        Toast.makeText(application,"still waiting to login",Toast.LENGTH_SHORT).show()
         call.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                Toast.makeText(application,"process finished",Toast.LENGTH_SHORT).show()
                 if (response.isSuccessful) {
                     val loginResponse = response.body()
                     val userId = loginResponse?.loginResult?.userId
@@ -51,6 +53,7 @@ class LoginViewModel(private val application: Application) : AndroidViewModel(ap
                 }else {
                     _isLoginSucces.value = false
                     _showLinearProgfress.value = false
+                    _message.value = Event("Wrong Username or Password")
                 }
             }
 

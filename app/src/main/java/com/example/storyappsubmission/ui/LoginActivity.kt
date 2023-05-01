@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
@@ -47,6 +48,11 @@ class LoginActivity : AppCompatActivity() {
         }
         viewModel.showLinearProgress.observe(this) {condition ->
             showLinearProgressBar(condition)
+        }
+        viewModel.message.observe(this) {message ->
+            message?.getContentIfNotHandled()?.let {
+                Toast.makeText(this@LoginActivity, it, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
