@@ -38,7 +38,7 @@ class AddStoryViewModel(private val application: Application) : ViewModel() {
     private lateinit var token: String
     private lateinit var client : ApiService
 
-    val timeStamp: String = SimpleDateFormat(
+    private val timeStamp: String = SimpleDateFormat(
         FILENAME_FORMAT,
         Locale.US
     ).format(System.currentTimeMillis())
