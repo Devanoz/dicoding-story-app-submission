@@ -1,13 +1,13 @@
 package com.example.storyappsubmission.ui
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.storyappsubmission.databinding.ActivityRegisterBinding
-import com.example.storyappsubmission.viewmodel.LoginViewModel
 import com.example.storyappsubmission.viewmodel.MyViewModelFactory
 import com.example.storyappsubmission.viewmodel.RegisterViewModel
 
@@ -25,7 +25,7 @@ class RegisterActivity : AppCompatActivity() {
             showProgressBar(isShowing)
         }
         viewModel.message.observe(this) {message ->
-            message?.getContentIfNotHandled().let {
+            message?.getContentIfNotHandled()?.let {
                 Toast.makeText(this@RegisterActivity, it, Toast.LENGTH_SHORT).show()
             }
         }
@@ -39,9 +39,40 @@ class RegisterActivity : AppCompatActivity() {
                 etPassword.text.toString()
             )
         }
-
+        playAnimation()
 
     }
+
+    private fun playAnimation() {
+        val fullNameLabel =  ObjectAnimator.ofFloat(binding.fullNameLabel, View.ALPHA, 1f).setDuration(500)
+        val fullNameEditText =  ObjectAnimator.ofFloat(binding.etFullName, View.ALPHA, 1f).setDuration(500)
+        val emailLabel = ObjectAnimator.ofFloat(binding.emailLabelRegister,View.ALPHA, 1f).setDuration(500)
+        val emailEditText = ObjectAnimator.ofFloat(binding.etEmail, View.ALPHA, 1f).setDuration(500)
+        val passwordLabel =
+            ObjectAnimator.ofFloat(binding.passwordLabelRegister, View.ALPHA, 1f).setDuration(500)
+        val passwordEditText =
+            ObjectAnimator.ofFloat(binding.etPassword, View.ALPHA, 1f).setDuration(500)
+        val registerButton =
+            ObjectAnimator.ofFloat(binding.registerButton, View.ALPHA, 1f).setDuration(500)
+
+        val fullNameSection = AnimatorSet().apply {
+            playTogether(fullNameLabel,fullNameEditText)
+        }
+
+        val emailSection = AnimatorSet().apply {
+            playTogether(emailLabel,emailEditText)
+        }
+        val passwordSection = AnimatorSet().apply {
+            playTogether(passwordLabel, passwordEditText)
+            play(this).before(registerButton)
+        }
+
+        val finalAnimationSet = AnimatorSet().apply {
+            playSequentially(fullNameSection,emailSection,passwordSection)
+        }
+        finalAnimationSet.start()
+    }
+
     private fun showProgressBar(isShowing: Boolean) {
         binding.registerProgressIndicator.visibility = if(isShowing) View.VISIBLE else View.INVISIBLE
     }

@@ -57,7 +57,6 @@ class EmailEditText : AppCompatEditText {
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        // Call invalidate() to force the view to redraw itself
         invalidate()
     }
 
