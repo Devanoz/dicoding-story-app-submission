@@ -27,7 +27,6 @@ class DetailStoryActivity : AppCompatActivity() {
         viewModel.detailStory.observe(this) {
             val story = it
             binding.nameTextView.text = story.name
-            binding.dateTextView.text = story.createdAt
             binding.descriptionTextView.text = story.description
             binding.circularProgressIndicator.visibility = View.INVISIBLE
             Glide.with(this).load(story.photoUrl).into(binding.storyImageView)
