@@ -27,7 +27,8 @@ class RegisterActivity : AppCompatActivity() {
         }
         viewModel.message.observe(this) { message ->
             message?.getContentIfNotHandled()?.let {
-                Toast.makeText(this@RegisterActivity, "suuu", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@RegisterActivity, it, Toast.LENGTH_SHORT).show()
+                finish()
             }
         }
         val etFullname = binding.etFullName
