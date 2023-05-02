@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StoryAppSubmission</string>
+    <string name="logout_menu_title">Keluar</string>
+    <string name="logout_menu_description">wahh</string>
+    <string name="file_not_choosen">Fail belum dipilih</string>
+    <string name="photo_capture_failed">Gagal memotret foto</string>
+    <string name="photo_capture_succed">:Foto berhasil diambil %s</string>
+    <string name="permissions_not_granted_by_the_user">Izin belum diberikan oleh pengguna</string>
+    <string name="upload_success">unggah sukses</string>
+    <string name="add_story_failed">Gagal menambahkan story</string>
+    <string name="something_error">Terdapat kegagalan</string>
+    <string name="failed_to_load_data">Gagal memuat data</string>
+    <string name="wrong_username_or_password">Username atau password salah</string>
+    <string name="failed_to_register_try_again">Gagal melakukan pendaftaran, Coba lagi</string>
+    <string name="register_success">Pendaftaran sukses</string>
+    <string name="insert_your_email">Masukkan email mu</string>
+    <string name="email_is_not_valid">Email tidak valid</string>
+    <string name="insert_your_password">Masukan password mu</string>
+    <string name="password_cannot_be_less_than_8_characters">password tidak boleh kurang dari 8 karakter</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="create_your_story">Buat stori kamu</string>
+    <string name="upload">Unggah</string>
+    <string name="add_story">Tambahkan Story</string>
+    <string name="username">Username</string>
+    <string name="password">Katasandi</string>
+    <string name="login">Masuk</string>
+    <string name="dont_have_account">Tidak Punya Akun?</string>
+    <string name="register">Daftar</string>
+    <string name="register_your_account">Daftarkan Akun mu</string>
+    <string name="email">Email</string>
+    <string name="full_name">Nama lengkap</string>
+    <string name="see_detail">Lihat detail</string>
+</resources>
