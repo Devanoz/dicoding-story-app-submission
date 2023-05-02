@@ -38,7 +38,7 @@ class RegisterViewModel(private val application: Application) : ViewModel() {
             }
 
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                _message.value = Event(application.getString(R.string.failed_to_login_try_again))
+                _message.value = Event(application.getString(R.string.failed_to_register_try_again))
             }
         })
     }

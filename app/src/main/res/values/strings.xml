@@ -11,7 +11,7 @@
     <string name="something_error">Something Error</string>
     <string name="failed_to_load_data">Failed to Load Data</string>
     <string name="wrong_username_or_password">Wrong Username or Password</string>
-    <string name="failed_to_login_try_again">Failed to login, try again</string>
+    <string name="failed_to_register_try_again">Failed to register, try again</string>
     <string name="register_success">register success</string>
     <string name="insert_your_email">Insert your Email</string>
     <string name="email_is_not_valid">email is not valid</string>
