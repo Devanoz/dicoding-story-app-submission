@@ -3,6 +3,9 @@ package com.example.storyappsubmission.adapter
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +18,10 @@ import com.bumptech.glide.request.target.Target
 import com.example.storyappsubmission.api.pojo.StoryItem
 import com.example.storyappsubmission.databinding.ItemStoryBinding
 import com.example.storyappsubmission.ui.DetailStoryActivity
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 
 class StoriesAdapter(private val storyList: List<StoryItem>) :
     RecyclerView.Adapter<StoriesAdapter.ViewHolder>() {
@@ -51,7 +58,17 @@ class StoriesAdapter(private val storyList: List<StoryItem>) :
                 .into(binding.imvStory)
             binding.tvName.text = storyItem.name
             binding.tvDescription.text = storyItem.description
-            binding.tvDate.text = storyItem.createdAt
+//            binding.tvDate.text = storyItem.createdAt
+
+//            if(VERSION.SDK_INT >= VERSION_CODES.O){
+//                val localDateTime = LocalDateTime.parse(storyItem.createdAt)
+//                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+//                val output = formatter.format(localDateTime)
+//                binding.tvDate.text = output
+//            }else {
+//
+//            }
+
             binding.detailButton.setOnClickListener {
                 val intent = Intent(activityContext, DetailStoryActivity::class.java)
                 intent.putExtra(ID_EXTRA,storyItem.id)

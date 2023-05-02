@@ -15,7 +15,7 @@
         />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logo_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -25,7 +25,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/email_label"
+        android:alpha="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -33,24 +34,26 @@
         android:text="Username"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/logo_image_view" />
 
     <com.example.storyappsubmission.views.EmailEditText
         android:id="@+id/et_email"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        android:alpha="0"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="@+id/email_label"
+        app:layout_constraintTop_toBottomOf="@+id/email_label" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/password_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
+        android:alpha="0"
         android:text="Password"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,10 +64,11 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
+        android:alpha="0"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintStart_toStartOf="@+id/password_label"
+        app:layout_constraintTop_toBottomOf="@+id/password_label" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login_button"
@@ -74,6 +78,7 @@
         android:text="Masuk"
         android:textStyle="bold"
         app:cornerRadius="10dp"
+        android:alpha="0"
         android:backgroundTint="@color/light_blue"
         android:enabled="false"
         android:textColor="@color/white"
@@ -83,10 +88,12 @@
         app:layout_constraintTop_toBottomOf="@+id/et_password" />
 
     <LinearLayout
+        android:id="@+id/register_section_linear_layout"
         android:layout_width="0dp"
         android:layout_height="20dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
+        android:alpha="0"
         app:layout_constraintEnd_toEndOf="@+id/login_button"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/login_button"

@@ -77,9 +77,6 @@ class ListStoryActivity : AppCompatActivity() {
                 finish()
                 splashScreen.setKeepOnScreenCondition{ false }
             }else {
-                withContext(Dispatchers.Main) {
-//                    binding.userName.text = name
-                }
                 splashScreen.setKeepOnScreenCondition{ false }
             }
         }
