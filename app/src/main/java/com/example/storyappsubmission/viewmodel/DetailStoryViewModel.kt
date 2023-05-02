@@ -1,7 +1,6 @@
 package com.example.storyappsubmission.viewmodel
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,9 +18,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailStoryViewModel(private val application: Application)  : ViewModel() {
+class DetailStoryViewModel(private val application: Application) : ViewModel() {
     private lateinit var token: String
-    private lateinit var client : ApiService
+    private lateinit var client: ApiService
 
     private val _detailStory = MutableLiveData<DetailStoryItem>()
     val detailStory: LiveData<DetailStoryItem> = _detailStory
@@ -41,15 +40,15 @@ class DetailStoryViewModel(private val application: Application)  : ViewModel() 
 
     fun getDetailStoryById(id: String) {
         val call = client.getStoryDetail(id)
-        call.enqueue(object: Callback<DetailStoryResponse> {
+        call.enqueue(object : Callback<DetailStoryResponse> {
             override fun onResponse(
                 call: Call<DetailStoryResponse>,
                 response: Response<DetailStoryResponse>
             ) {
-               if(response.isSuccessful) {
+                if (response.isSuccessful) {
                     val storyResponse = response.body()?.story
-                   _detailStory.value = storyResponse
-               }
+                    _detailStory.value = storyResponse
+                }
             }
 
             override fun onFailure(call: Call<DetailStoryResponse>, t: Throwable) {

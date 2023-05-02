@@ -18,10 +18,10 @@ import retrofit2.Response
 
 class ListStoryViewModel(private val application: Application) : ViewModel() {
     private lateinit var token: String
-    private lateinit var client : ApiService
+    private lateinit var client: ApiService
 
     private val _storyList = MutableLiveData<List<StoryItem>>()
-    val storyList: LiveData<List<StoryItem>>  = _storyList
+    val storyList: LiveData<List<StoryItem>> = _storyList
 
 
     init {
@@ -43,7 +43,7 @@ class ListStoryViewModel(private val application: Application) : ViewModel() {
                 call: Call<StoriesResponse>,
                 response: Response<StoriesResponse>
             ) {
-                if(response.isSuccessful) {
+                if (response.isSuccessful) {
                     val storyList = response.body()?.listStory
                     _storyList.value = storyList
                 }

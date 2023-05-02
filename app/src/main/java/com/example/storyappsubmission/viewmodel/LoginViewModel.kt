@@ -34,7 +34,7 @@ class LoginViewModel(private val application: Application) : AndroidViewModel(ap
     val showLinearProgress: LiveData<Boolean> = _showLinearProgfress
     fun login(email: String, password: String) {
         _showLinearProgfress.value = true
-        val call = client.login(LoginModel(email,password))
+        val call = client.login(LoginModel(email, password))
         call.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
@@ -44,16 +44,26 @@ class LoginViewModel(private val application: Application) : AndroidViewModel(ap
                     val token = loginResponse?.loginResult?.token
 
                     viewModelScope.launch(Dispatchers.IO) {
-                        preferencesHelper.putPreference(PreferencesDataStoreConstans.USER_ID, userId.toString())
-                        preferencesHelper.putPreference(PreferencesDataStoreConstans.NAME, name.toString())
-                        preferencesHelper.putPreference(PreferencesDataStoreConstans.TOKEN, token.toString())
+                        preferencesHelper.putPreference(
+                            PreferencesDataStoreConstans.USER_ID,
+                            userId.toString()
+                        )
+                        preferencesHelper.putPreference(
+                            PreferencesDataStoreConstans.NAME,
+                            name.toString()
+                        )
+                        preferencesHelper.putPreference(
+                            PreferencesDataStoreConstans.TOKEN,
+                            token.toString()
+                        )
                     }
                     _isLoginSucces.value = true
                     _showLinearProgfress.value = false
-                }else {
+                } else {
                     _isLoginSucces.value = false
                     _showLinearProgfress.value = false
-                    _message.value = Event(application.getString(R.string.wrong_username_or_password))
+                    _message.value =
+                        Event(application.getString(R.string.wrong_username_or_password))
                 }
             }
 

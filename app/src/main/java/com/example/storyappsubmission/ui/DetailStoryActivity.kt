@@ -16,10 +16,13 @@ class DetailStoryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding  = ActivityDetailStoryBinding.inflate(layoutInflater)
+        binding = ActivityDetailStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModel = ViewModelProvider(this, MyViewModelFactory(application))[DetailStoryViewModel::class.java]
+        val viewModel = ViewModelProvider(
+            this,
+            MyViewModelFactory(application)
+        )[DetailStoryViewModel::class.java]
         val storyId = intent.getStringExtra(StoriesAdapter.ID_EXTRA) as String
         viewModel.detailStory.observe(this) {
             val story = it
@@ -29,7 +32,7 @@ class DetailStoryActivity : AppCompatActivity() {
             binding.circularProgressIndicator.visibility = View.INVISIBLE
             Glide.with(this).load(story.photoUrl).into(binding.storyImageView)
         }
-        viewModel.message.observe(this) {message ->
+        viewModel.message.observe(this) { message ->
             message?.getContentIfNotHandled()?.let {
                 Toast.makeText(this@DetailStoryActivity, it, Toast.LENGTH_SHORT).show()
             }

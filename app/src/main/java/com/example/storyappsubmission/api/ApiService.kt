@@ -33,6 +33,7 @@ interface ApiService {
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody
     ): Call<AddStoryResponse>
+
     @GET("stories/{id}")
     fun getStoryDetail(@Path("id") id: String): Call<DetailStoryResponse>
 }

@@ -34,22 +34,22 @@ class ListStoryActivity : AppCompatActivity() {
 
     private lateinit var listStoryViewModel: ListStoryViewModel
 
-    private val launchAddStoryForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if(it.resultCode == REQUEST_UPLOAD_SUCCES_CONDITION) {
+    private val launchAddStoryForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == REQUEST_UPLOAD_SUCCES_CONDITION) {
                 listStoryViewModel.getAllStories()
             }
-    }
+        }
 
     private lateinit var name: String
     private lateinit var userId: String
     private lateinit var token: String
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Handle the splash screen transition.
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         binding = ActivityListStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        splashScreen.setKeepOnScreenCondition{ true }
+        splashScreen.setKeepOnScreenCondition { true }
         preferencesHelper = PreferencesDataStoreHelper(this.applicationContext)
         srlRefreshStory = binding.srlRefreshStory
 
@@ -58,7 +58,8 @@ class ListStoryActivity : AppCompatActivity() {
         fabAddStory = binding.fabAddStory
 
         val rvStories = binding.rvStory
-        listStoryViewModel = ViewModelProvider(this, MyViewModelFactory(application))[ListStoryViewModel::class.java]
+        listStoryViewModel =
+            ViewModelProvider(this, MyViewModelFactory(application))[ListStoryViewModel::class.java]
 
         srlRefreshStory.isRefreshing = true
 
@@ -75,27 +76,28 @@ class ListStoryActivity : AppCompatActivity() {
             if (name.isEmpty()) {
                 startActivity(Intent(this@ListStoryActivity, LoginActivity::class.java))
                 finish()
-                splashScreen.setKeepOnScreenCondition{ false }
-            }else {
-                splashScreen.setKeepOnScreenCondition{ false }
+                splashScreen.setKeepOnScreenCondition { false }
+            } else {
+                splashScreen.setKeepOnScreenCondition { false }
             }
         }
         toolbarStory.setOnMenuItemClickListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.logout -> {
                     lifecycleScope.launch {
                         logout()
-                        startActivity(Intent(this@ListStoryActivity,LoginActivity::class.java))
+                        startActivity(Intent(this@ListStoryActivity, LoginActivity::class.java))
                         finish()
                     }
                     true
                 }
+
                 else -> false
             }
         }
         srlRefreshStory.setOnRefreshListener { listStoryViewModel.getAllStories() }
         fabAddStory.setOnClickListener {
-           launchAddStoryForResult.launch(Intent(this, AddStoryActivity::class.java))
+            launchAddStoryForResult.launch(Intent(this, AddStoryActivity::class.java))
         }
     }
 

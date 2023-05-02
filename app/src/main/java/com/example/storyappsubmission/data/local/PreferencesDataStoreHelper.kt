@@ -14,26 +14,28 @@ import java.io.IOException
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_session")
 
-class PreferencesDataStoreHelper(context: Context): PreferencesDatastoreAPI {
+class PreferencesDataStoreHelper(context: Context) : PreferencesDatastoreAPI {
 
     private val dataSource = context.dataStore
 
-    override suspend fun <T> getPreference(key: Preferences.Key<T>, defaultValue: T): Flow<T> = dataSource.data.catch {
-        if(it is IOException) {
-            emit(emptyPreferences())
-        }else {
-            throw it
+    override suspend fun <T> getPreference(key: Preferences.Key<T>, defaultValue: T): Flow<T> =
+        dataSource.data.catch {
+            if (it is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw it
+            }
+        }.map { preferences ->
+            val result = preferences[key] ?: defaultValue
+            result
         }
-    }.map { preferences ->
-        val result = preferences[key] ?: defaultValue
-        result
-    }
 
-    override suspend fun <T> getFirstPreference(key: Preferences.Key<T>, defaultValue: T): T  = dataSource.data.first()[key] ?: defaultValue
+    override suspend fun <T> getFirstPreference(key: Preferences.Key<T>, defaultValue: T): T =
+        dataSource.data.first()[key] ?: defaultValue
 
     override suspend fun <T> putPreference(key: Preferences.Key<T>, value: T) {
         dataSource.edit {
-            it [key] = value
+            it[key] = value
         }
     }
 

@@ -19,14 +19,15 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val viewModel = ViewModelProvider(this, MyViewModelFactory(application))[RegisterViewModel::class.java]
+        val viewModel =
+            ViewModelProvider(this, MyViewModelFactory(application))[RegisterViewModel::class.java]
 
         viewModel.showProgressBar.observe(this) { isShowing ->
             showProgressBar(isShowing)
         }
-        viewModel.message.observe(this) {message ->
+        viewModel.message.observe(this) { message ->
             message?.getContentIfNotHandled()?.let {
-                Toast.makeText(this@RegisterActivity, it, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@RegisterActivity, "suuu", Toast.LENGTH_SHORT).show()
             }
         }
         val etFullname = binding.etFullName
@@ -44,36 +45,42 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun playAnimation() {
-        val fullNameLabel =  ObjectAnimator.ofFloat(binding.fullNameLabel, View.ALPHA, 1f).setDuration(500)
-        val fullNameEditText =  ObjectAnimator.ofFloat(binding.etFullName, View.ALPHA, 1f).setDuration(500)
-        val emailLabel = ObjectAnimator.ofFloat(binding.emailLabelRegister,View.ALPHA, 1f).setDuration(500)
-        val emailEditText = ObjectAnimator.ofFloat(binding.etEmail, View.ALPHA, 1f).setDuration(500)
+        val fullNameLabel =
+            ObjectAnimator.ofFloat(binding.fullNameLabel, View.ALPHA, 1f).setDuration(250)
+        val fullNameEditText =
+            ObjectAnimator.ofFloat(binding.etFullName, View.ALPHA, 1f).setDuration(250)
+        val emailLabel =
+            ObjectAnimator.ofFloat(binding.emailLabelRegister, View.ALPHA, 1f).setDuration(250)
+        val emailEditText = ObjectAnimator.ofFloat(binding.etEmail, View.ALPHA, 1f).setDuration(250)
         val passwordLabel =
-            ObjectAnimator.ofFloat(binding.passwordLabelRegister, View.ALPHA, 1f).setDuration(500)
+            ObjectAnimator.ofFloat(binding.passwordLabelRegister, View.ALPHA, 1f).setDuration(250)
         val passwordEditText =
-            ObjectAnimator.ofFloat(binding.etPassword, View.ALPHA, 1f).setDuration(500)
+            ObjectAnimator.ofFloat(binding.etPassword, View.ALPHA, 1f).setDuration(250)
         val registerButton =
-            ObjectAnimator.ofFloat(binding.registerButton, View.ALPHA, 1f).setDuration(500)
+            ObjectAnimator.ofFloat(binding.registerButton, View.ALPHA, 1f).setDuration(250)
 
         val fullNameSection = AnimatorSet().apply {
-            playTogether(fullNameLabel,fullNameEditText)
+            playTogether(fullNameLabel, fullNameEditText)
         }
 
         val emailSection = AnimatorSet().apply {
-            playTogether(emailLabel,emailEditText)
+            playTogether(emailLabel, emailEditText)
         }
         val passwordSection = AnimatorSet().apply {
             playTogether(passwordLabel, passwordEditText)
-            play(this).before(registerButton)
+        }
+        val buttonRegisterSet = AnimatorSet().apply {
+            play(registerButton)
         }
 
         val finalAnimationSet = AnimatorSet().apply {
-            playSequentially(fullNameSection,emailSection,passwordSection)
+            playSequentially(fullNameSection, emailSection, passwordSection, buttonRegisterSet)
         }
         finalAnimationSet.start()
     }
 
     private fun showProgressBar(isShowing: Boolean) {
-        binding.registerProgressIndicator.visibility = if(isShowing) View.VISIBLE else View.INVISIBLE
+        binding.registerProgressIndicator.visibility =
+            if (isShowing) View.VISIBLE else View.INVISIBLE
     }
 }

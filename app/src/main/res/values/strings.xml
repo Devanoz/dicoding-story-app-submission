@@ -17,4 +17,18 @@
     <string name="email_is_not_valid">email is not valid</string>
     <string name="insert_your_password">Insert your password</string>
     <string name="password_cannot_be_less_than_8_characters">password cannot be less than 8 characters</string>
+    <string name="camera">camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="create_your_story">Create Your Story</string>
+    <string name="upload">upload</string>
+    <string name="add_story">Add Story</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="dont_have_account">Dont have account?</string>
+    <string name="register">Register</string>
+    <string name="register_your_account">Register Your Account</string>
+    <string name="email">Email</string>
+    <string name="full_name">Full name</string>
+    <string name="see_detail">See detail</string>
 </resources>

@@ -80,16 +80,16 @@ class LoginActivity : AppCompatActivity() {
         }.start()
 
         val emailSection = AnimatorSet().apply {
-            playTogether(emailLabel,emailEditText)
+            playTogether(emailLabel, emailEditText)
         }
         val passwordSection = AnimatorSet().apply {
             playTogether(passwordLabel, passwordEditText)
         }
-        val registrationSection =AnimatorSet().apply {
-            playTogether(loginButton,registerSection)
+        val registrationSection = AnimatorSet().apply {
+            playTogether(loginButton, registerSection)
         }
         val finalAnimationSet = AnimatorSet().apply {
-            playSequentially(emailSection,passwordSection,registrationSection)
+            playSequentially(emailSection, passwordSection, registrationSection)
         }
         finalAnimationSet.start()
 

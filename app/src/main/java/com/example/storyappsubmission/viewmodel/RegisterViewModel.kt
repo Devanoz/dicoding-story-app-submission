@@ -1,7 +1,6 @@
 package com.example.storyappsubmission.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,7 +24,7 @@ class RegisterViewModel(private val application: Application) : ViewModel() {
 
     fun register(fullName: String, email: String, password: String) {
         _showProgressBar.value = true
-        val call = client.registerUser(RegisterModel(fullName,email,password))
+        val call = client.registerUser(RegisterModel(fullName, email, password))
         call.enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
                 call: Call<RegisterResponse>,
@@ -33,8 +32,8 @@ class RegisterViewModel(private val application: Application) : ViewModel() {
             ) {
                 if (response.isSuccessful) {
                     _showProgressBar.value = false
-                    _message.value = Event( application.getString(R.string.register_success))
-                }else {
+                    _message.value = Event(application.getString(R.string.register_success))
+                } else {
                 }
             }
 

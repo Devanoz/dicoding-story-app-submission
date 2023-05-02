@@ -1,7 +1,5 @@
 package com.example.storyappsubmission.api
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -9,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiConfig {
     fun getApiServiceWithToken(token: String): ApiService {
         val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor{ chain ->
+            .addInterceptor { chain ->
                 val request = chain.request()
                     .newBuilder()
                     .addHeader("Authorization", "Bearer $token")
@@ -24,6 +22,7 @@ object ApiConfig {
             .build()
         return retrofit.create(ApiService::class.java)
     }
+
     fun getApiService(): ApiService {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://story-api.dicoding.dev/v1/")

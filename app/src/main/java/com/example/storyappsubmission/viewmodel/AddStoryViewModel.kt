@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
 import android.os.Environment
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -37,7 +36,7 @@ import java.util.Locale
 
 class AddStoryViewModel(private val application: Application) : ViewModel() {
     private lateinit var token: String
-    private lateinit var client : ApiService
+    private lateinit var client: ApiService
 
     private val timeStamp: String = SimpleDateFormat(
         FILENAME_FORMAT,
@@ -62,30 +61,43 @@ class AddStoryViewModel(private val application: Application) : ViewModel() {
 
     fun uploadStory(fileUri: Uri, description: String, isFromGallery: Boolean) {
         _showLinearProgress.value = true
-        var file = uriToFile(fileUri,application)
-        if(!isFromGallery) {
+        var file = uriToFile(fileUri, application)
+        if (!isFromGallery) {
             rotateFile(file, isBackCamera = true)
         }
         file = reduceFileImage(file)
-        val requestImageFile = RequestBody.create(MediaType.parse("image/*"),file)
-        val filePart = MultipartBody.Part.createFormData("photo",file.name,requestImageFile)
+        val requestImageFile = RequestBody.create(MediaType.parse("image/*"), file)
+        val filePart = MultipartBody.Part.createFormData("photo", file.name, requestImageFile)
         val descriptionBody = RequestBody.create(MediaType.parse("text/plain"), description)
-        val call = client.postStory(filePart,descriptionBody)
-        call.enqueue(object: Callback<AddStoryResponse>{
+        val call = client.postStory(filePart, descriptionBody)
+        call.enqueue(object : Callback<AddStoryResponse> {
             override fun onResponse(
                 call: Call<AddStoryResponse>,
                 response: Response<AddStoryResponse>
             ) {
-                if(response.isSuccessful) {
+                if (response.isSuccessful) {
                     _isUploadSuccess.value = true
                     _showLinearProgress.value = false
-                    Toast.makeText(application, application.getString(R.string.upload_success),Toast.LENGTH_SHORT).show()
-                }else {
-                    Toast.makeText(application,application.getString(R.string.add_story_failed),Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        application,
+                        application.getString(R.string.upload_success),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        application,
+                        application.getString(R.string.add_story_failed),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
+
             override fun onFailure(call: Call<AddStoryResponse>, t: Throwable) {
-                Toast.makeText(application,application.getString(R.string.something_error),Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    application,
+                    application.getString(R.string.something_error),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
@@ -136,6 +148,7 @@ class AddStoryViewModel(private val application: Application) : ViewModel() {
         bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
         return file
     }
+
     companion object {
         private const val MAX_IMAGE_SIZE = 1000000
         private const val FILENAME_FORMAT = "dd-MMM-yyyy"

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:text="Daftarkan Akunmu"
+        android:text="@string/register_your_account"
         android:textColor="@color/light_blue"
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:text="Email"
+        android:text="@string/email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etFullName" />
 
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Password"
+        android:text="@string/password"
         android:alpha="0"
         app:layout_constraintStart_toStartOf="@+id/email_label_register"
         app:layout_constraintTop_toBottomOf="@+id/etEmail" />
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="Full name"
+        android:text="@string/full_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -90,15 +90,17 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/register_button"
+        style="@style/CardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        style="@style/CardView"
-        app:cornerRadius="10dp"
+        android:alpha="0"
         android:backgroundTint="@color/light_blue"
-        android:text="Daftar"
+        android:text="@string/register"
         android:textStyle="bold"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="@+id/etPassword"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/etPassword"
         app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 

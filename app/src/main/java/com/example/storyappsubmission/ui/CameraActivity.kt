@@ -55,10 +55,8 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun takePhoto() {
-        // Get a stable reference of the modifiable image capture use case
         val imageCapture = imageCapture ?: return
 
-        // Create time stamped name and MediaStore entry.
         val name = SimpleDateFormat(FILENAME_FORMAT, Locale.US)
             .format(System.currentTimeMillis())
 
@@ -71,7 +69,6 @@ class CameraActivity : AppCompatActivity() {
             }
         }
 
-        // Create output options object which contains file + metadata
         val outputOptions = ImageCapture.OutputFileOptions
             .Builder(
                 contentResolver,
@@ -80,8 +77,6 @@ class CameraActivity : AppCompatActivity() {
             )
             .build()
 
-        // Set up image capture listener, which is triggered after photo has
-        // been taken
         imageCapture.takePicture(
             outputOptions,
             ContextCompat.getMainExecutor(this),
@@ -112,10 +107,8 @@ class CameraActivity : AppCompatActivity() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
-            // Used to bind the lifecycle of cameras to the lifecycle owner
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
-            // Preview
             val preview = Preview.Builder()
                 .build()
             imageCapture = ImageCapture.Builder()
@@ -124,17 +117,14 @@ class CameraActivity : AppCompatActivity() {
                 .build()
             preview.setSurfaceProvider(binding.previewView.surfaceProvider)
 
-            // Select back camera as a default
             val cameraSelector = CameraSelector.Builder()
                 .requireLensFacing(LENS_FACING_BACK)
                 .build()
 
             try {
-                // Unbind use cases before rebinding
                 cameraProvider.unbindAll()
 
-                // Bind use cases to camera
-                var camera = cameraProvider.bindToLifecycle(
+                cameraProvider.bindToLifecycle(
                     this, cameraSelector, preview, imageCapture
                 )
 
