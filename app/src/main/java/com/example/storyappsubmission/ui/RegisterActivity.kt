@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import com.example.storyappsubmission.databinding.ActivityRegisterBinding
 import com.example.storyappsubmission.viewmodel.MyViewModelFactory
@@ -40,6 +41,12 @@ class RegisterActivity : AppCompatActivity() {
                 etEmail.text.toString(),
                 etPassword.text.toString()
             )
+        }
+        etEmail.addTextChangedListener {
+            binding.registerButton.isEnabled = isFormValid()
+        }
+        etPassword.addTextChangedListener {
+            binding.registerButton.isEnabled = isFormValid()
         }
         playAnimation()
 
@@ -84,4 +91,5 @@ class RegisterActivity : AppCompatActivity() {
         binding.registerProgressIndicator.visibility =
             if (isShowing) View.VISIBLE else View.INVISIBLE
     }
+    private fun isFormValid(): Boolean = binding.etEmail.isValid && binding.etPassword.isValid
 }
