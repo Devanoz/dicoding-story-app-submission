@@ -83,17 +83,19 @@ class ListStoryActivity : AppCompatActivity() {
         }
         toolbarStory.setOnMenuItemClickListener {
             when (it.itemId) {
+
+                R.id.map_view-> {
+                    val toMapsIntent = Intent(this@ListStoryActivity, MapsActivity::class.java)
+                    startActivity(toMapsIntent)
+                    true
+                }
+
                 R.id.logout -> {
                     lifecycleScope.launch {
                         logout()
                         startActivity(Intent(this@ListStoryActivity, LoginActivity::class.java))
                         finish()
                     }
-                    true
-                }
-                R.id.map -> {
-                    val toMapsIntent = Intent(this@ListStoryActivity, MapsActivity::class.java)
-                    startActivity(toMapsIntent)
                     true
                 }
 

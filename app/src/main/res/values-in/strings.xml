@@ -33,4 +33,5 @@
     <string name="full_name">Nama lengkap</string>
     <string name="see_detail">Lihat detail</string>
     <string name="map">peta</string>
+    <string name="see_map">lihat map</string>
 </resources>
