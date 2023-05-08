@@ -10,7 +10,6 @@ import androidx.room.RoomDatabase
 abstract class StoryDatabase: RoomDatabase() {
     abstract fun storyDao(): StoryDao
 
-
     companion object {
         @Volatile
         private var INSTANCE: RoomDatabase? = null

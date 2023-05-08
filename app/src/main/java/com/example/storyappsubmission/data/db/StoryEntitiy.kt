@@ -2,13 +2,14 @@ package com.example.storyappsubmission.data.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "story")
 data class StoryEntitiy(
-    @PrimaryKey
-    val id: String,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 1,
     @ColumnInfo(name = "name")
     val name: String?,
     @ColumnInfo(name = "description")
