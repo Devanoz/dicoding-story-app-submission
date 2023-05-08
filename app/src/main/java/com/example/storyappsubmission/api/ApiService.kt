@@ -24,7 +24,7 @@ interface ApiService {
     @POST("login")
     fun login(@Body loginModel: LoginModel): Call<LoginResponse>
 
-    @GET("stories")
+    @GET("stories?location=1")
     fun getAllStories(): Call<StoriesResponse>
 
     @Multipart

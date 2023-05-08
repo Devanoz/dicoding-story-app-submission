@@ -91,6 +91,11 @@ class ListStoryActivity : AppCompatActivity() {
                     }
                     true
                 }
+                R.id.map -> {
+                    val toMapsIntent = Intent(this@ListStoryActivity, MapsActivity::class.java)
+                    startActivity(toMapsIntent)
+                    true
+                }
 
                 else -> false
             }

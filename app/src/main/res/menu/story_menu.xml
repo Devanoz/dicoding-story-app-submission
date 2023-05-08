@@ -2,9 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/map"
+        android:title="@string/map"
+        android:icon="@drawable/baseline_map_24"
+        android:contentDescription="lihat map"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/logout"
         android:title="@string/logout_menu_title"
         android:contentDescription="@string/logout_menu_description"
         app:showAsAction="collapseActionView"
         />
+
 </menu>
